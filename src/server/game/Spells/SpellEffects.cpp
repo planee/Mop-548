@@ -4780,14 +4780,18 @@ void Spell::EffectPickPocket(SpellEffIndex /*effIndex*/)
       if (!unitTarget || unitTarget->GetTypeId() != TYPEID_UNIT || m_caster->IsFriendlyTo(unitTarget))
             return;
 
-      // victim have to be alive and humanoid or undead
-      if (unitTarget->isAlive() && (unitTarget->GetCreatureTypeMask() & CREATURE_TYPE_HUMANOID) != 0)
-      {
-            if (m_caster->HasAura(63268)) // Glyph of Disguise
-                  unitTarget->AddAura(121308, m_caster);
+	  // victim has to be alive and humanoid or undead
+	  {
+		  bool isAlive = unitTarget->isAlive();
+		  bool isHumanoid = (unitTarget->GetCreatureTypeMask() & CREATURE_TYPEMASK_HUMANOID_OR_UNDEAD != 0);
+		  if (isAlive)// && isHumanoid)
+		  {
+			  if (m_caster->HasAura(63268)) // Glyph of Disguise
+				  unitTarget->AddAura(121308, m_caster);
 
-            m_caster->ToPlayer()->SendLoot(unitTarget->GetGUID(), LOOT_PICKPOCKETING);
-      }
+			  m_caster->ToPlayer()->SendLoot(unitTarget->GetGUID(), LOOT_PICKPOCKETING);
+		  }
+	  }
 }
 
 void Spell::EffectAddFarsight(SpellEffIndex effIndex)
