@@ -1,0 +1,173 @@
+#include "ScriptPCH.h"
+#include "baradin_hold.h"
+
+DoorData const doorData[] =
+{
+	{ GO_ARGALOTH_DOOR, DATA_ARGALOTH, DOOR_TYPE_ROOM, BOUNDARY_NONE },
+	{ GO_OCCUTHAR_DOOR, DATA_OCCUTHAR, DOOR_TYPE_ROOM, BOUNDARY_NONE },
+	{ GO_ALIZABAL_DOOR, DATA_ALIZABAL, DOOR_TYPE_ROOM, BOUNDARY_NONE },
+    {0,                     0,              DOOR_TYPE_ROOM,       BOUNDARY_NONE}, // END
+};
+
+class instance_baradin_hold : public InstanceMapScript
+{
+    public:
+        instance_baradin_hold() : InstanceMapScript("instance_baradin_hold", 757) { }
+
+        InstanceScript* GetInstanceScript(InstanceMap* map) const
+        {
+            return new instance_baradin_hold_InstanceMapScript(map);
+        }
+
+        struct instance_baradin_hold_InstanceMapScript : public InstanceScript
+        {
+            instance_baradin_hold_InstanceMapScript(Map* map) : InstanceScript(map)
+            {
+                SetBossNumber(MAX_ENCOUNTER);
+                LoadDoorData(doorData);
+				_argalothGUID = 0;
+				_occutharGUID = 0;
+				_alizabalGUID = 0;
+				_argalothDoor = 0;
+				_occutharDoor = 0;
+				_alizabalDoor = 0;
+            }
+            
+            bool SetBossState(uint32 type, EncounterState state)
+            {
+                if (!InstanceScript::SetBossState(type, state))
+                    return false;
+                
+                return true;
+            }
+
+            void OnGameObjectCreate(GameObject* pGo)
+            {
+                switch (pGo->GetEntry())
+                {
+				case GO_ARGALOTH_DOOR:
+					_argalothDoor = pGo->GetGUID();
+					AddDoor(pGo, true);
+					break;
+				case GO_OCCUTHAR_DOOR:
+					_occutharDoor = pGo->GetGUID();
+					AddDoor(pGo, true);
+				case GO_ALIZABAL_DOOR:
+					_alizabalDoor = pGo->GetGUID();
+					AddDoor(pGo, true);
+					break;
+                }
+            }
+
+			uint64 GetData64(uint32 data) const
+			{
+				switch (data)
+				{
+				case DATA_ARGALOTH:
+					return _argalothGUID;
+				case DATA_OCCUTHAR:
+					return _occutharGUID;
+				case DATA_ALIZABAL:
+					return _alizabalGUID;
+				case GO_ARGALOTH_DOOR:
+					return _argalothDoor;
+				case GO_OCCUTHAR_DOOR:
+					return _occutharDoor;
+				case GO_ALIZABAL_DOOR:
+					return _alizabalDoor;
+				default:
+					break;
+				}
+				return 0;
+			}
+
+			void OnGameObjectRemove(GameObject* pGo)
+			{
+				switch (pGo->GetEntry())
+				{
+				case GO_ARGALOTH_DOOR:
+					AddDoor(pGo, false);
+					break;
+				case GO_OCCUTHAR_DOOR:
+					AddDoor(pGo, false);
+					break;
+				case GO_ALIZABAL_DOOR:
+					AddDoor(pGo, false);
+					break;
+				}
+			}
+
+			void OnCreatureDeath(Creature * creature)
+			{
+				switch (creature->GetEntry())
+				{
+				case NPC_ARGALOTH:
+					if (GetData(DATA_ARGALOTH) == DONE)
+						HandleGameObject(GetData64(GO_ARGALOTH_DOOR), true);
+					break;
+				case NPC_OCCUTHAR:
+					if (GetData(DATA_OCCUTHAR) == DONE)
+						HandleGameObject(GetData64(GO_OCCUTHAR_DOOR), true);
+					break;
+				case NPC_ALIZABAL:
+					if (GetData(DATA_ALIZABAL) == DONE)
+						HandleGameObject(GetData64(GO_ALIZABAL_DOOR), true);
+					break;
+				}
+			}
+
+            std::string GetSaveData()
+            {
+                OUT_SAVE_INST_DATA;
+
+                std::ostringstream saveStream;
+                saveStream << "B H " << GetBossSaveData();
+
+                OUT_SAVE_INST_DATA_COMPLETE;
+                return saveStream.str();
+            }
+
+            void Load(const char* in)
+            {
+                if (!in)
+                {
+                    OUT_LOAD_INST_DATA_FAIL;
+                    return;
+                }
+
+                OUT_LOAD_INST_DATA(in);
+
+                char dataHead1, dataHead2;
+
+                std::istringstream loadStream(in);
+                loadStream >> dataHead1 >> dataHead2;
+
+                if (dataHead1 == 'B' && dataHead2 == 'H')
+                {
+                    for (uint8 i = 0; i < MAX_ENCOUNTER; ++i)
+                    {
+                        uint32 tmpState;
+                        loadStream >> tmpState;
+                        if (tmpState == IN_PROGRESS || tmpState > SPECIAL)
+                            tmpState = NOT_STARTED;
+                        SetBossState(i, EncounterState(tmpState));
+                    }
+
+                } else OUT_LOAD_INST_DATA_FAIL;
+
+                OUT_LOAD_INST_DATA_COMPLETE;
+            }
+		private:
+			uint64 _argalothGUID;
+			uint64 _occutharGUID;
+			uint64 _alizabalGUID;
+			uint64 _argalothDoor;
+			uint64 _occutharDoor;
+			uint64 _alizabalDoor;
+        };
+};
+
+void AddSC_instance_baradin_hold()
+{
+    new instance_baradin_hold();
+}
