@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2014 TrinityCore <http://www.trinitycore.org/>
+# Copyright (C)
 #
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without
@@ -73,6 +73,7 @@ set(ace_STAT_SRCS
   Event.cpp
   Event_Handler.cpp
   Event_Handler_Handle_Timeout_Upcall.cpp
+  Event_Base.cpp
   FIFO.cpp
   FIFO_Recv.cpp
   FIFO_Recv_Msg.cpp
@@ -105,6 +106,7 @@ set(ace_STAT_SRCS
   Local_Name_Space.cpp
   Local_Tokens.cpp
   Lock.cpp
+  Log_Category.cpp
   Log_Msg.cpp
   Log_Msg_Backend.cpp
   Log_Msg_Callback.cpp
@@ -156,6 +158,7 @@ set(ace_STAT_SRCS
   Obchunk.cpp
   Object_Manager.cpp
   Object_Manager_Base.cpp
+  Obstack.cpp
   OS_Errno.cpp
   OS_Log_Msg_Attributes.cpp
   OS_main.cpp

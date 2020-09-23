@@ -1,4 +1,5 @@
-# Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+# Copyright (C) 2005-2020 Project Spartans <http://www.spartans-wow.com/
+# Copyright (C) 2008-2020 TrinityCore <http://www.trinitycore.org/>
 #
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without
@@ -34,9 +35,14 @@ if(CMAKE_SYSTEM_NAME MATCHES "Windows")
 endif()
 
 add_subdirectory(g3dlite)
+add_subdirectory(boost)
+add_subdirectory(recastnavigation)
+
 
 if(SERVERS)
   add_subdirectory(gsoap)
+  add_subdirectory(utf8cpp)
+
 endif()
 
 if(TOOLS)
@@ -45,4 +51,8 @@ endif()
 
 if (ELUNA)
   add_subdirectory(lualib)
+endif()
+
+if (MARIA_DB)
+add_subdirectory(mariadb)
 endif()

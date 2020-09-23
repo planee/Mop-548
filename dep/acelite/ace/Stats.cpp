@@ -1,5 +1,3 @@
-// $Id: Stats.cpp 95761 2012-05-15 18:23:04Z johnnyw $
-
 #include "ace/Stats.h"
 
 #if !defined (__ACE_INLINE__)

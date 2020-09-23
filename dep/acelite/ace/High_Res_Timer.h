@@ -4,8 +4,6 @@
 /**
  *  @file    High_Res_Timer.h
  *
- *  $Id: High_Res_Timer.h 95798 2012-05-31 07:58:55Z johnnyw $
- *
  *  @author Douglas C. Schmidt <schmidt@cs.wustl.edu>
  */
 //==========================================================================

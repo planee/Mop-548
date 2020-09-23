@@ -1,4 +1,3 @@
-// $Id: XML_Helper.h 95801 2012-05-31 09:14:36Z johnnyw $
 //============================================================
 /**
  * @file XML_Helper.h
@@ -84,7 +83,7 @@ namespace XML
   private:
     bool initialized_;
     XERCES_CPP_NAMESPACE::DOMImplementation *impl_;
-    mutable std::auto_ptr<XERCES_CPP_NAMESPACE::XercesDOMParser> parser_;
+    mutable std::unique_ptr<XERCES_CPP_NAMESPACE::XercesDOMParser> parser_;
 
     Resolver *resolver_;
     bool release_resolver_;

@@ -4,8 +4,6 @@
 /**
  *  @file   config-macros.h
  *
- *  $Id: config-macros.h 94386 2011-08-10 12:42:53Z johnnyw $
- *
  *  @author (Originally in OS.h)Doug Schmidt <schmidt@cs.wustl.edu>
  *  @author Jesper S. M|ller<stophph@diku.dk>
  *  @author and a cast of thousands...
@@ -186,6 +184,25 @@
 
 #endif /* !ACE_HAS_CUSTOM_EXPORT_MACROS */
 
+#if defined (ACE_HAS_EXPLICIT_TEMPLATE_CLASS_INSTANTIATION)
+# define ACE_SINGLETON_TEMPLATE_INSTANTIATION(T) \
+  template class T;
+# define ACE_SINGLETON_TEMPLATE_INSTANTIATE(SINGLETON_TYPE, CLASS, LOCK) \
+  template class SINGLETON_TYPE < CLASS, LOCK >;
+#elif defined (ACE_HAS_EXPLICIT_STATIC_TEMPLATE_MEMBER_INSTANTIATION)
+# define ACE_SINGLETON_TEMPLATE_INSTANTIATION(T) \
+  template T * T::singleton_;
+# define ACE_SINGLETON_TEMPLATE_INSTANTIATE(SINGLETON_TYPE, CLASS, LOCK) \
+  template SINGLETON_TYPE < CLASS, LOCK > * SINGLETON_TYPE < CLASS, LOCK >::singleton_;
+#endif /* ACE_HAS_EXPLICIT_STATIC_TEMPLATE_MEMBER_INSTANTIATION */
+
+#if !defined(ACE_SINGLETON_TEMPLATE_INSTANTIATION)
+# define ACE_SINGLETON_TEMPLATE_INSTANTIATION(T)
+#endif
+#if !defined(ACE_SINGLETON_TEMPLATE_INSTANTIATE)
+# define ACE_SINGLETON_TEMPLATE_INSTANTIATE(SINGLETON_TYPE, CLASS, LOCK)
+#endif
+
 // This is a whim of mine -- that instead of annotating a class with
 // ACE_Export in its declaration, we make the declaration near the TOP
 // of the file with ACE_DECLARE_EXPORT.
@@ -227,7 +244,7 @@
 // ============================================================================
 
 #if !defined (ACE_UNUSED_ARG)
-# if defined (__GNUC__) && ((__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 2)))
+# if defined (__GNUC__) && ((__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 2))) || (defined (__BORLANDC__) && defined (__clang__))
 #   define ACE_UNUSED_ARG(a) (void) (a)
 # elif defined (__GNUC__) || defined (ghs) || defined (__hpux) || defined (__DECCXX) || defined (__rational__) || defined (__USLC__) || defined (ACE_RM544) || defined (__DCC__) || defined (__PGI) || defined (__TANDEM)
 // Some compilers complain about "statement with no effect" with (a).
@@ -244,7 +261,7 @@
 # endif /* ghs || __GNUC__ || ..... */
 #endif /* !ACE_UNUSED_ARG */
 
-#if defined (_MSC_VER) || defined (ghs) || defined (__DECCXX) || defined(__BORLANDC__) || defined (ACE_RM544) || defined (__USLC__) || defined (__DCC__) || defined (__PGI) || defined (__TANDEM) || (defined (__HP_aCC) && (__HP_aCC < 40000 || __HP_aCC >= 60500))
+#if defined (_MSC_VER) || defined (ghs) || defined (__DECCXX) || defined(__BORLANDC__) || defined (ACE_RM544) || defined (__USLC__) || defined (__DCC__) || defined (__PGI) || defined (__TANDEM) || (defined (__HP_aCC) && (__HP_aCC < 39000 || __HP_aCC >= 60500))
 # define ACE_NOTREACHED(a)
 #else  /* ghs || ..... */
 # define ACE_NOTREACHED(a) a

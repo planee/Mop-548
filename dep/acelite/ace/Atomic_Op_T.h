@@ -4,8 +4,6 @@
 /**
  *  @file    Atomic_Op_T.h
  *
- *  $Id: Atomic_Op_T.h 95761 2012-05-15 18:23:04Z johnnyw $
- *
  *  @author Douglas C. Schmidt <schmidt@uci.edu>
  */
 //=============================================================================

@@ -3,8 +3,6 @@
 /**
  *  @file    SSL_Context.h
  *
- *  $Id: SSL_Context.h 96087 2012-08-21 12:26:44Z sma $
- *
  *  @author Carlos O'Ryan <coryan@ece.uci.edu>
  *  @author Ossama Othman <ossama@dre.vanderbilt.edu>
  */
@@ -30,6 +28,8 @@
 #include <openssl/ssl.h>
 
 ACE_BEGIN_VERSIONED_NAMESPACE_DECL
+
+class ACE_INET_Addr;
 
 class ACE_SSL_Export ACE_SSL_Data_File
 {
@@ -104,10 +104,12 @@ public:
 
   enum {
     INVALID_METHOD = -1,
+#if !defined (OPENSSL_NO_SSL2)
     SSLv2_client = 1,
     SSLv2_server,
     SSLv2,
-    SSLv3_client,
+#endif /* !OPENSSL_NO_SSL2 */
+    SSLv3_client = 4,
     SSLv3_server,
     SSLv3,
     SSLv23_client,
@@ -115,7 +117,13 @@ public:
     SSLv23,
     TLSv1_client,
     TLSv1_server,
-    TLSv1
+    TLSv1,
+    TLSv1_1_client,
+    TLSv1_1_server,
+    TLSv1_1,
+    TLSv1_2_client,
+    TLSv1_2_server,
+    TLSv1_2
   };
 
   /// Constructor
@@ -173,6 +181,12 @@ public:
 
   /// Load certificate from memory rather than a file.
   int certificate (X509* cert);
+
+  /// Parse the string and filter crypto versions accordingly
+  int filter_versions (const char *filter);
+
+  /// verify the peer cert matches the host
+  bool check_host (const ACE_INET_Addr& host, SSL * peerssl);
 
   /**
    *  Load the location of the trusted certification authority

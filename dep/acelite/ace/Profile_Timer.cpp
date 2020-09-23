@@ -1,12 +1,10 @@
-// $Id: Profile_Timer.cpp 95761 2012-05-15 18:23:04Z johnnyw $
-
 #include "ace/Profile_Timer.h"
 
 #if !defined (__ACE_INLINE__)
 # include "ace/Profile_Timer.inl"
 #endif /* __ACE_INLINE__ */
 
-#include "ace/Log_Msg.h"
+#include "ace/Log_Category.h"
 #include "ace/OS_NS_string.h"
 
 #if defined (ACE_HAS_PRUSAGE_T)
@@ -49,7 +47,7 @@ ACE_Profile_Timer::ACE_Profile_Timer (void)
 
   this->proc_handle_ = ACE_OS::open (buf, O_RDONLY, 0);
   if (this->proc_handle_ == -1)
-    ACE_ERROR ((LM_ERROR,
+    ACELIB_ERROR ((LM_ERROR,
                 ACE_TEXT ("%p\n"),
                 buf));
 #  elif defined (ACE_HAS_GETRUSAGE)
@@ -65,7 +63,7 @@ ACE_Profile_Timer::~ACE_Profile_Timer (void)
   ACE_TRACE ("ACE_Profile_Timer::~ACE_Profile_Timer");
 #  if defined (ACE_HAS_PRUSAGE_T)
   if (ACE_OS::close (this->proc_handle_) == -1)
-    ACE_ERROR ((LM_ERROR,
+    ACELIB_ERROR ((LM_ERROR,
                 ACE_TEXT ("ACE_Profile_Timer::~ACE_Profile_Timer")));
 #  endif /* ACE_HAS_PRUSAGE_T */
 }

@@ -1,5 +1,3 @@
-// $Id: Stream_Modules.cpp 96061 2012-08-16 09:36:07Z mcorino $
-
 #ifndef ACE_STREAM_MODULES_CPP
 #define ACE_STREAM_MODULES_CPP
 

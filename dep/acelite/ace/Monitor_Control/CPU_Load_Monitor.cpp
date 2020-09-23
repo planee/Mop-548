@@ -1,5 +1,3 @@
-// $Id: CPU_Load_Monitor.cpp 95533 2012-02-14 22:59:17Z wotte $
-
 #include "ace/Monitor_Control/CPU_Load_Monitor.h"
 
 #if defined (ACE_HAS_MONITOR_FRAMEWORK) && (ACE_HAS_MONITOR_FRAMEWORK == 1)
@@ -126,7 +124,7 @@ namespace ACE
 
       if (this->file_ptr_ == 0)
         {
-          ACE_ERROR ((LM_ERROR,
+          ACELIB_ERROR ((LM_ERROR,
                       ACE_TEXT ("CPU load - opening /proc/stat failed\n")));
           return;
         }
@@ -168,7 +166,7 @@ namespace ACE
 
       if (this->kstats_ == 0)
         {
-          ACE_ERROR ((LM_ERROR,
+          ACELIB_ERROR ((LM_ERROR,
                       ACE_TEXT ("opening kstats file failed\n")));
           return;
         }
@@ -224,7 +222,7 @@ namespace ACE
 
               if (! this->kstat_id_ > 0)
                 {
-                  ACE_ERROR ((LM_ERROR,
+                  ACELIB_ERROR ((LM_ERROR,
                               ACE_TEXT ("kstat chain update ")
                               ACE_TEXT ("returned null id\n")));
                   return;
@@ -241,7 +239,7 @@ namespace ACE
 
       if (status != 0)
         {
-          ACE_ERROR ((LM_ERROR,
+          ACELIB_ERROR ((LM_ERROR,
                       ACE_TEXT ("closing kstats file failed\n")));
         }
     }

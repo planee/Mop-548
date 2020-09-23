@@ -1,5 +1,3 @@
-// $Id: Configuration_Import_Export.cpp 96017 2012-08-08 22:18:09Z mitza $
-
 #include "ace/Configuration_Import_Export.h"
 #include "ace/OS_Errno.h"
 #include "ace/OS_NS_stdio.h"

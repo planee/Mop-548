@@ -1,5 +1,3 @@
-// $Id: XercesString.cpp 95760 2012-05-15 13:46:19Z msmit $
-
 #include <ostream>
 #include <algorithm>
 

@@ -55,6 +55,10 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
+include_directories(
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/msvc_compat
+)
+
 add_definitions(-D_GNU_SOURCE -D_REENTRANT)
 
 add_library(jemalloc STATIC ${jemalloc_STAT_SRC})

@@ -1,5 +1,3 @@
-// $Id: Service_Types.cpp 95676 2012-04-03 16:32:27Z schmidt $
-
 #include "ace/Service_Types.h"
 
 #if !defined (__ACE_INLINE__)

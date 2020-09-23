@@ -4,8 +4,6 @@
 /**
  *  @file    Timer_Heap_T.h
  *
- *  $Id: Timer_Heap_T.h 95368 2011-12-19 13:38:49Z mcorino $
- *
  *  @author Douglas C. Schmidt <schmidt@cs.wustl.edu>
  */
 //=============================================================================

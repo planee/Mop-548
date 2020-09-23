@@ -1,5 +1,3 @@
-// $Id: OS_NS_unistd.cpp 94448 2011-09-08 08:20:29Z johnnyw $
-
 #include "ace/OS_NS_unistd.h"
 
 #if !defined (ACE_HAS_INLINED_OSCALLS)
@@ -344,7 +342,7 @@ ACE_OS::fork_exec (ACE_TCHAR *argv[])
           if (ACE_OS::execv (argv[0], argv) == -1)
             {
               // The OS layer should not print stuff out
-              // ACE_ERROR ((LM_ERROR,
+              // ACELIB_ERROR ((LM_ERROR,
               //             "%p Exec failed\n"));
 
               // If the execv fails, this child needs to exit.

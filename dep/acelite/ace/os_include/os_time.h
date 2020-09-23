@@ -6,8 +6,6 @@
  *
  *  time types
  *
- *  $Id: os_time.h 91683 2010-09-09 09:07:49Z johnnyw $
- *
  *  @author Don Hinton <dhinton@dresystems.com>
  *  @author This code was originally in various places including ace/OS.h.
  */
@@ -18,7 +16,7 @@
 
 #include /**/ "ace/pre.h"
 
-#include "ace/config-lite.h"
+#include /**/ "ace/config-lite.h"
 
 #if !defined (ACE_LACKS_PRAGMA_ONCE)
 # pragma once
@@ -53,7 +51,7 @@ using std::timezone;
 using std::difftime;
 # endif /* ACE_USES_STD_NAMESPACE_FOR_STDC_LIB */
 
-# if !defined (ACE_HAS_POSIX_TIME) && _MSC_VER < 1900
+# if !defined (ACE_HAS_POSIX_TIME)
 // Definition per POSIX.
 typedef struct timespec
 {
@@ -70,9 +68,7 @@ typedef struct timespec
 #     include /**/ <sys/timers.h>
 #  endif
 # endif /* !ACE_HAS_POSIX_TIME */
-#if _MSC_VER >= 1900 // Visual Studio 2015
-typedef timespec timespec_t;
-#endif
+
 # if defined(ACE_LACKS_TIMESPEC_T)
 typedef struct timespec timespec_t;
 # endif /* ACE_LACKS_TIMESPEC_T */

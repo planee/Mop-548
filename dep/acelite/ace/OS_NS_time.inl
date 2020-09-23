@@ -1,7 +1,4 @@
 // -*- C++ -*-
-//
-// $Id: OS_NS_time.inl 95763 2012-05-16 06:43:51Z johnnyw $
-
 #include "ace/OS_NS_string.h"
 #include "ace/OS_NS_errno.h"
 #include "ace/Time_Value.h"

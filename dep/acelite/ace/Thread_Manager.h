@@ -4,8 +4,6 @@
 /**
  *  @file    Thread_Manager.h
  *
- *  $Id: Thread_Manager.h 96061 2012-08-16 09:36:07Z mcorino $
- *
  *  @author Douglas C. Schmidt <schmidt@cs.wustl.edu>
  */
 //=============================================================================
@@ -27,7 +25,7 @@
 #include "ace/Containers.h"
 #include "ace/Free_List.h"
 #include "ace/Singleton.h"
-#include "ace/Log_Msg.h"
+#include "ace/Log_Category.h"
 #include "ace/Synch_Traits.h"
 #include "ace/Basic_Types.h"
 

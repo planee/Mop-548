@@ -1,5 +1,3 @@
-// $Id: config-lynxos.h 94274 2011-06-29 07:59:12Z mcorino $
-
 // The following configuration file is designed to work for LynxOS,
 // version 4.0.0 and later, using the GNU g++ compiler.
 

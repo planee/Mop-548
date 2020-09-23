@@ -1,7 +1,4 @@
 // -*- C++ -*-
-//
-// $Id: Functor_T.inl 95332 2011-12-15 11:09:41Z mcorino $
-
 ACE_BEGIN_VERSIONED_NAMESPACE_DECL
 
 template<class RECEIVER> ACE_INLINE
@@ -39,9 +36,8 @@ ACE_Pointer_Hash<TYPE>::operator () (TYPE t) const
   // the hash back to a pointer.
 #  pragma warning(push)
 #  pragma warning(disable : 4311)   /* Truncate pointer to unsigned long */
-#  pragma warning(disable : 4302)	/* 'reinterpret_cast': truncation from 'ACE_Future_Rep<T> ' to 'unsigned long */
 #endif /* ACE_WIN64 */
-  return reinterpret_cast<unsigned long> (t);
+  return ACE_Utils::truncate_cast<unsigned long> ((intptr_t)t);
 #if defined (ACE_WIN64)
 #  pragma warning(pop)
 #endif /* ACE_WIN64 */

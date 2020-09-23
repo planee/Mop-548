@@ -1,7 +1,5 @@
 // file      : XSCRT/Elements.hpp
 // author    : Boris Kolpackov <boris@dre.vanderbilt.edu>
-// cvs-id    : $Id: Elements.hpp 95832 2012-06-06 13:09:50Z johnnyw $
-
 #ifndef XSCRT_ELEMENTS_HPP
 #define XSCRT_ELEMENTS_HPP
 
@@ -151,7 +149,7 @@ namespace XSCRT
     {
       if (map_.get () == 0)
       {
-        map_ = std::auto_ptr<Map_> (new Map_);
+        map_ = std::unique_ptr<Map_> (new Map_);
       }
 
       if (!map_->insert (
@@ -257,7 +255,7 @@ namespace XSCRT
     std::map<IdentityProvider const*, Type*, IdentityComparator>
     Map_;
 
-    std::auto_ptr<Map_> map_;
+    std::unique_ptr<Map_> map_;
   };
 
   // Fundamental types template.

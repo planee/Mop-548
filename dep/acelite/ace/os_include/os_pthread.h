@@ -6,8 +6,6 @@
  *
  *  threads
  *
- *  $Id: os_pthread.h 95761 2012-05-15 18:23:04Z johnnyw $
- *
  *  @author Don Hinton <dhinton@dresystems.com>
  *  @author This code was originally in various places including ace/OS.h.
  */

@@ -1,5 +1,3 @@
-// $Id: Task.cpp 95761 2012-05-15 18:23:04Z johnnyw $
-
 #include "ace/Task.h"
 #include "ace/Module.h"
 

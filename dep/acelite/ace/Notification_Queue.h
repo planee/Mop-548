@@ -1,8 +1,6 @@
 /**
  *  @file Notification_Queue.h
  *
- *  $Id: Notification_Queue.h 95425 2012-01-09 11:09:43Z johnnyw $
- *
  *  @author Carlos O'Ryan <coryan@atdesk.com>
  */
 

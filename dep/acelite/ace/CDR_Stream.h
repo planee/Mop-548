@@ -4,8 +4,6 @@
 /**
  *  @file   CDR_Stream.h
  *
- *  $Id: CDR_Stream.h 95896 2012-06-18 20:42:07Z hillj $
- *
  * ACE Common Data Representation (CDR) marshaling and demarshaling
  * classes.
  *
@@ -27,7 +25,6 @@
  *  CDR stream ignores alignment when marshaling data. Use this option
  *  only when ACE_DISABLE_SWAP_ON_READ can be enabled. This option requires
  *  ACE CDR engine to do both marshaling and demarshaling.
- *
  *
  *  @author TAO version by Aniruddha Gokhale <gokhale@cs.wustl.edu>
  *  @author Carlos O'Ryan <coryan@cs.wustl.edu>
@@ -243,6 +240,7 @@ public:
   ACE_CDR::Boolean write_float (ACE_CDR::Float x);
   ACE_CDR::Boolean write_double (const ACE_CDR::Double &x);
   ACE_CDR::Boolean write_longdouble (const ACE_CDR::LongDouble &x);
+  ACE_CDR::Boolean write_fixed (const ACE_CDR::Fixed &x);
 
   /// For string we offer methods that accept a precomputed length.
   ACE_CDR::Boolean write_string (const ACE_CDR::Char *x);
@@ -371,6 +369,7 @@ public:
   ACE_CDR::Boolean append_float (ACE_InputCDR &);
   ACE_CDR::Boolean append_double (ACE_InputCDR &);
   ACE_CDR::Boolean append_longdouble (ACE_InputCDR &);
+  ACE_CDR::Boolean append_fixed (ACE_InputCDR &);
 
   ACE_CDR::Boolean append_wstring (ACE_InputCDR &);
   ACE_CDR::Boolean append_string (ACE_InputCDR &);
@@ -426,7 +425,7 @@ public:
 
   /**
    * Utility function to allow the user more flexibility.
-   * Pads the stream up to the nearest <alignment>-byte boundary.
+   * Pads the stream up to the nearest @a alignment byte boundary.
    * Argument MUST be a power of 2.
    * Returns 0 on success and -1 on failure.
    */
@@ -488,7 +487,7 @@ public:
   /// gateway.
   void reset_byte_order (int byte_order);
 
-  /// set GIOP version info
+  /// Set GIOP version info
   void set_version (ACE_CDR::Octet major, ACE_CDR::Octet minor);
 
   /// Set the underlying GIOP version..
@@ -518,13 +517,13 @@ private:
 
   /**
    * write an array of @a length elements, each of @a size bytes and the
-   * start aligned at a multiple of <align>. The elements are assumed
+   * start aligned at a multiple of @a align. The elements are assumed
    * to be packed with the right alignment restrictions.  It is mostly
    * designed for buffers of the basic types.
    *
-   * This operation uses <memcpy>; as explained above it is expected
-   * that using assignment is faster that <memcpy> for one element,
-   * but for several elements <memcpy> should be more efficient, it
+   * This operation uses @c memcpy; as explained above it is expected
+   * that using assignment is faster that @c memcpy for one element,
+   * but for several elements @c memcpy should be more efficient, it
    * could be interesting to find the break even point and optimize
    * for that case, but that would be too platform dependent.
    */
@@ -541,7 +540,7 @@ private:
   /**
    * Grow the CDR stream. When it returns @a buf contains a pointer to
    * memory in the CDR stream, with at least @a size bytes ahead of it
-   * and aligned to an <align> boundary. It moved the <wr_ptr> to <buf
+   * and aligned to an @a align boundary. It moved the <wr_ptr> to <buf
    * + size>.
    */
   int grow_and_adjust (size_t size,
@@ -581,8 +580,9 @@ private:
    * for such a beast is that in some setting a few (fast) machines
    * can be serving hundreds of slow machines with the opposite byte
    * order, so it makes sense (as a load balancing device) to put the
-   * responsibility in the writers.  THIS IS NOT A STANDARD IN CORBA,
-   * USE AT YOUR OWN RISK
+   * responsibility in the writers.
+   *
+   * @warning THIS IS NOT A STANDARD IN CORBA, USE AT YOUR OWN RISK
    */
   bool do_byte_swap_;
 
@@ -737,7 +737,7 @@ public:
   ACE_InputCDR (Transfer_Contents rhs);
 
   /// Destructor
-  ~ACE_InputCDR (void);
+  virtual ~ACE_InputCDR (void);
 
   /// Disambiguate overloading when extracting octets, chars,
   /// booleans, and bounded strings
@@ -813,6 +813,7 @@ public:
   ACE_CDR::Boolean read_float (ACE_CDR::Float &x);
   ACE_CDR::Boolean read_double (ACE_CDR::Double &x);
   ACE_CDR::Boolean read_longdouble (ACE_CDR::LongDouble &x);
+  ACE_CDR::Boolean read_fixed (ACE_CDR::Fixed &x);
 
   ACE_CDR::Boolean read_string (ACE_CDR::Char *&x);
   ACE_CDR::Boolean read_string (ACE_CString &x);
@@ -870,6 +871,7 @@ public:
   ACE_CDR::Boolean skip_float (void);
   ACE_CDR::Boolean skip_double (void);
   ACE_CDR::Boolean skip_longdouble (void);
+  ACE_CDR::Boolean skip_fixed (void);
   //@}
 
   /**
@@ -1050,13 +1052,13 @@ private:
 
   /**
    * Read an array of @a length elements, each of @a size bytes and the
-   * start aligned at a multiple of <align>. The elements are assumed
+   * start aligned at a multiple of @a align. The elements are assumed
    * to be packed with the right alignment restrictions.  It is mostly
    * designed for buffers of the basic types.
    *
-   * This operation uses <memcpy>; as explained above it is expected
-   * that using assignment is faster that <memcpy> for one element,
-   * but for several elements <memcpy> should be more efficient, it
+   * This operation uses @c memcpy; as explained above it is expected
+   * that using assignment is faster that @c memcpy for one element,
+   * but for several elements @c memcpy should be more efficient, it
    * could be interesting to find the break even point and optimize
    * for that case, but that would be too platform dependent.
    */
@@ -1146,7 +1148,7 @@ protected:
                             const ACE_CDR::Octet *x);
 
   /// Efficiently read @a length elements of size @a size each from
-  /// <input> into <x>; the data must be aligned to <align>.
+  /// @a input into @a x; the data must be aligned to @a align.
   ACE_CDR::Boolean read_array (ACE_InputCDR& input,
                                void* x,
                                size_t size,
@@ -1169,7 +1171,7 @@ protected:
    * Exposes the stream implementation of <adjust>, this is useful in
    * many cases to minimize memory allocations during marshaling.
    * On success @a buf will contain a contiguous area in the CDR stream
-   * that can hold @a size bytes aligned to <align>.
+   * that can hold @a size bytes aligned to @a align.
    * Results
    */
   int adjust (ACE_OutputCDR& out,
@@ -1321,6 +1323,8 @@ extern ACE_Export ACE_CDR::Boolean operator<< (ACE_OutputCDR &os,
                                                ACE_CDR::Float x);
 extern ACE_Export ACE_CDR::Boolean operator<< (ACE_OutputCDR &os,
                                                ACE_CDR::Double x);
+extern ACE_Export ACE_CDR::Boolean operator<< (ACE_OutputCDR &os,
+                                               const ACE_CDR::Fixed &x);
 
 // CDR output operator from helper classes
 
@@ -1364,6 +1368,8 @@ extern ACE_Export ACE_CDR::Boolean operator>> (ACE_InputCDR &is,
                                                ACE_CDR::Float &x);
 extern ACE_Export ACE_CDR::Boolean operator>> (ACE_InputCDR &is,
                                                ACE_CDR::Double &x);
+extern ACE_Export ACE_CDR::Boolean operator>> (ACE_InputCDR &is,
+                                               ACE_CDR::Fixed &x);
 
 // CDR input operator from helper classes
 

@@ -1,6 +1,4 @@
 // -*- C++ -*-
-// $Id: OS_NS_arpa_inet.cpp 95534 2012-02-17 23:19:33Z mitza $
-
 #include "ace/OS_NS_arpa_inet.h"
 
 #if !defined (ACE_HAS_INLINED_OSCALLS)

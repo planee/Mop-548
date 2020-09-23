@@ -1,5 +1,3 @@
-// $Id: Num_Threads_Monitor.cpp 95533 2012-02-14 22:59:17Z wotte $
-
 #include "ace/Monitor_Control/Num_Threads_Monitor.h"
 
 #if defined (ACE_HAS_MONITOR_FRAMEWORK) && (ACE_HAS_MONITOR_FRAMEWORK == 1)
@@ -40,7 +38,7 @@ namespace ACE
 
       if (this->file_ptr_ == 0)
         {
-          ACE_ERROR ((LM_ERROR,
+          ACELIB_ERROR ((LM_ERROR,
                       ACE_TEXT ("Num threads - opening ")
                       ACE_TEXT ("/proc/self/status failed\n")));
           return;
