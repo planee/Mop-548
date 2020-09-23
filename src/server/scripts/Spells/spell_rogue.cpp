@@ -607,8 +607,9 @@ class spell_rog_nightstalker : public SpellScriptLoader
             {
                 if (Unit* caster = GetCaster())
                 {
-                    if (caster->HasAura(ROGUE_SPELL_NIGHTSTALKER_DAMAGE_DONE))
-                        caster->RemoveAura(ROGUE_SPELL_NIGHTSTALKER_DAMAGE_DONE);
+					// it's implemented in Unit::DealDamage
+				   //if (GetCaster()->HasAura(ROGUE_SPELL_NIGHTSTALKER_DAMAGE_DONE))
+				   //    GetCaster()->RemoveAura(ROGUE_SPELL_NIGHTSTALKER_DAMAGE_DONE);
 
                     if (caster->HasAura(ROGUE_SPELL_SHADOW_FOCUS_COST_PCT))
                         caster->RemoveAura(ROGUE_SPELL_SHADOW_FOCUS_COST_PCT);

@@ -689,13 +689,12 @@ uint32 Unit::DealDamage(Unit* victim, uint32 damage, CleanDamage const* cleanDam
             RemoveAurasByType(SPELL_AURA_MOD_STEALTH);
     }
 
-    // Fix Nightstalker damage from stealth
-    if (GetTypeId() == TYPEID_PLAYER  && this && this->getClass() == CLASS_ROGUE && victim && this->HasAura(14062) && this->HasAura(130493))
-    {
-        damage = uint32(damage * 1.5f);
-        // custom remove
-        this->RemoveAura(130493);
-    }
+	// Fix Nightstalker damage from stealth
+	if (GetTypeId() == TYPEID_PLAYER && getClass() == CLASS_ROGUE && HasAura(130493))
+	{
+		// custom remove
+		this->RemoveAura(130493);
+	}
 
     // Custom MoP Script - Desperate Measures
     if (plr && ToPlayer() && this->getClass() == CLASS_MONK && victim->HasAura(126060))
