@@ -19,8 +19,10 @@
 #ifndef TRINITY_SHAREDDEFINES_H
 #define TRINITY_SHAREDDEFINES_H
 
+#include "DetourNavMesh.h"
 #include "Define.h"
 #include <cassert>
+
 
 #define MAX_CREATURE_BASE_HP 5
 
@@ -4722,6 +4724,21 @@ enum MountResult
     ERROR_YOUR_RACE_CANT_RIDE                 = 7,
     ERROR_YOU_CANT_RIDE_WHILE_IN_ANOTHER_FORM = 8,
     ERROR_YOU_CANT_CONTINUE                   = 9,
+};
+
+const uint32 MMAP_MAGIC = 0x4d4d4150; // 'MMAP'
+#define MMAP_VERSION 5.2f
+
+struct MmapTileHeader
+{
+	uint32 mmapMagic;
+	uint32 dtVersion;
+	float mmapVersion;
+	uint32 size;
+	bool usesLiquids : 1;
+
+	MmapTileHeader() : mmapMagic(MMAP_MAGIC), dtVersion(DT_NAVMESH_VERSION),
+		mmapVersion(MMAP_VERSION), size(0), usesLiquids(true) { }
 };
 
 #define CURRENCY_PRECISION 100

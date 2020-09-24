@@ -156,6 +156,7 @@ public:
                 }
                 disableTypeStr = "outdoorpvp";
                 break;
+
             }
             case DISABLE_TYPE_VMAP:
             {
@@ -168,9 +169,23 @@ public:
                 disableTypeStr = "vmap";
                 break;
             }
-            default:
                 break;
-        }
+
+
+			case DISABLE_TYPE_MMAP:
+			{
+				if (!sMapStore.LookupEntry(entry))
+				{
+					handler->PSendSysMessage(LANG_COMMAND_NOMAPFOUND);
+					handler->SetSentErrorMessage(true);
+					return false;
+				}
+				disableTypeStr = "mmap";
+				break;
+			}
+			default:
+				break;
+		}
 
         PreparedStatement* stmt = NULL;
         stmt = WorldDatabase.GetPreparedStatement(WORLD_SEL_DISABLES);
