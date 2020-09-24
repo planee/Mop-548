@@ -1,5 +1,4 @@
 /*
- * Copyright (C) 2011-2020 Project SkyFire <http://www.projectskyfire.org/>
  * Copyright (C) 2020 Project Spartans <http://www.spartans-wow.com/>
  * Copyright (C) 2008-2020 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2020 MaNGOS <https://www.getmangos.eu/>
