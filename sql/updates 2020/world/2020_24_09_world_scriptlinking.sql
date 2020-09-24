@@ -1,0 +1,10 @@
+DELETE FROM `spell_script_names` WHERE `spell_id`=51690 AND `ScriptName`='spell_rog_killing_spree';
+INSERT INTO `spell_script_names` (`spell_id`, `ScriptName`) VALUES (51690, 'spell_rog_killing_spree');
+DELETE FROM `spell_script_names` WHERE `spell_id`=51690 AND `ScriptName`='spell_rog_glyph_of_killing_spree';
+INSERT INTO `spell_script_names` (`spell_id`, `ScriptName`) VALUES (51690, 'spell_rog_glyph_of_killing_spree');
+DELETE FROM `spell_script_names` WHERE `spell_id`=1856 AND `ScriptName`='spell_rog_glyph_of_decoy';
+INSERT INTO `spell_script_names` (`spell_id`, `ScriptName`) VALUES (1856, 'spell_rog_glyph_of_decoy');
+DELETE FROM `spell_script_names` WHERE `spell_id`=51723 AND `ScriptName`='spell_rog_fan_of_knives';
+INSERT INTO `spell_script_names` (`spell_id`, `ScriptName`) VALUES (51723, 'spell_rog_fan_of_knives');
+DELETE FROM `spell_script_names` WHERE `spell_id`=22482 AND `ScriptName`='spell_rog_blade_flurry_damage';
+INSERT INTO `spell_script_names` (`spell_id`, `ScriptName`) VALUES (22482, 'spell_rog_blade_flurry_damage');
