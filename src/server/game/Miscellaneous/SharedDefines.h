@@ -19,10 +19,9 @@
 #ifndef TRINITY_SHAREDDEFINES_H
 #define TRINITY_SHAREDDEFINES_H
 
-#include "DetourNavMesh.h"
 #include "Define.h"
 #include <cassert>
-
+#include "../../../../dep/recastnavigation/Detour/DetourNavMesh.h"
 
 #define MAX_CREATURE_BASE_HP 5
 
