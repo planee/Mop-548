@@ -1,0 +1,1 @@
+UPDATE creature_Template SET Health_mod = 10 WHERE entry=54734

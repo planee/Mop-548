@@ -1,0 +1,1 @@
+UPDATE `quest_template` SET `RequiredSpellCast1` = 136711 WHERE `id`  = 32525;
