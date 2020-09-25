@@ -75,6 +75,35 @@ typedef std::map<uint32, PageText> PageTextContainer;
 // Benchmarked: Faster than std::map (insert/find)
 typedef UNORDERED_MAP<uint16, InstanceTemplate> InstanceTemplateContainer;
 
+struct ScenarioPOIPoint
+{
+    int32 x;
+    int32 y;
+
+    ScenarioPOIPoint() : x(0), y(0) {}
+    ScenarioPOIPoint(int32 _x, int32 _y) : x(_x), y(_y) {}
+};
+
+struct ScenarioPOI
+{
+    uint32 Id;
+    uint32 MapId;
+    uint32 WorldMapAreaId;
+    uint32 Floor;
+    uint32 Unk16;
+    uint32 Unk20;
+    uint32 WorldEffectID;
+    uint32 Unk28;
+    std::vector<ScenarioPOIPoint> points;
+
+    ScenarioPOI() : Id(0), MapId(0), WorldMapAreaId(0), Floor(0), Unk16(0), Unk20(0), WorldEffectID(0), Unk28(0) {}
+    ScenarioPOI(uint32 _Id, uint32 _MapId, uint32 _WorldMapAreaId, uint32 _Floor, uint32 _Unk16, uint32 _Unk20, uint32 _WorldEffectID, uint32 _Unk28) :
+        Id(_Id), MapId(_MapId), WorldMapAreaId(_WorldMapAreaId), Floor(_Floor), Unk16(_Unk16), Unk20(_Unk20), WorldEffectID(_WorldEffectID), Unk28(_Unk28) { }
+};
+
+typedef std::vector<ScenarioPOI> ScenarioPOIVector;
+typedef std::unordered_map<uint32, ScenarioPOIVector> ScenarioPOIContainer;
+
 struct GameTele
 {
     float  position_x;

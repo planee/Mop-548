@@ -104,7 +104,7 @@ namespace Arena
         }
 
        // sLog->outError(LOG_FILTER_ARENAS, "FATAL: Unknown arena team slot %u for some arena team", slot);
-        //return 0xFF;
+        return 0xFF;
     }
  
     inline float GetChanceAgainst(uint32 ownRating, uint32 opponentRating)
@@ -123,15 +123,15 @@ namespace Arena
         // Calculate the rating modification
         float mod;
 
-		if (rbg)
-		{
-			if (won && ownRating < 1500)
-				mod = 192.0f * (won_mod - chance);
-			else
-				mod = 24.0f * (won_mod - chance);
+        if (rbg)
+        {
+            if (won && ownRating < 1500)
+                mod = 192.0f * (won_mod - chance);
+            else
+                mod = 24.0f * (won_mod - chance);
 
-			return (int32)ceil(mod);
-		}
+            return (int32)ceil(mod);
+        }
  
         // TODO: Replace this hack with using the confidence factor (limiting the factor to 2.0f)
         if (won && ownRating < 1300)
